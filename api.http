@@ -1,0 +1,22 @@
+// Get Users
+
+GET http://localhost:3020/api/users
+
+###
+
+// Create User
+
+POST http://localhost:3020/api/users
+Content-Type: application/json
+
+{
+    "name": "Luis",
+    "email": "test@test.com",
+    "password": "testing"
+}
+
+###
+
+// Get 1 User
+
+GET http://localhost:3020/api/users/1
