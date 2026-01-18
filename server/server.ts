@@ -23,52 +23,72 @@ app.get("/api/users", async (_req, res) => {
   
 // GET one user
 app.get("/api/users/:id", async (req, res) => {
-    const id = Number(req.params.id)
-    const db = await readDb()
-    const user = db.users.find(u => u.id === id)
-    if (!user) return res.status(404).json({ error: "User not found" })
-    res.json(user)
+    try {
+        const id = Number(req.params.id)
+        const db = await readDb()
+        const user = db.users.find(u => u.id === id)
+        if (!user) return res.status(404).json({ error: "User not found" })
+        res.json(user)
+    } catch (err) {
+        if(err instanceof Error) res.status(500).json({ error: err.message })
+        else  res.status(500).json({ error: "Unknown error occurred" })
+    }
 })
   
 // CREATE user
 app.post("/api/users", async (req, res) => {
-    const {name, email, password} = req.body
-    if (!name) return res.status(400).json({ error: "name is required" })
-  
-    const db = await readDb()
-    const user = { id: nextId(db.users), name, email, password }
-    db.users.push(user)
-  
-    await writeDb(db)
-    res.status(201).json(user)
+    try {
+        const {name, email, password} = req.body
+        if (!name) return res.status(400).json({ error: "name is required" })
+      
+        const db = await readDb()
+        const user = { id: nextId(db.users), name, email, password }
+        db.users.push(user)
+      
+        await writeDb(db)
+        res.status(201).json(user)
+    } catch (error) {
+        if(error instanceof Error) res.status(500).json({ error: error.message })
+        else  res.status(500).json({ error: "Unknown error occurred" })
+    }
 })
   
 // UPDATE user
 app.put("/api/users/:id", async (req, res) => {
-    const id = Number(req.params.id)
-    const name = String(req.body?.name ?? "").trim()
-    if (!name) return res.status(400).json({ error: "name is required" })
-  
-    const db = await readDb()
-    const user = db.users.find(u => u.id === id)
-    if (!user) return res.status(404).json({ error: "User not found" })
-  
-    user.name = name
-    await writeDb(db)
-    res.json(user)
+    try {
+        const id = Number(req.params.id)
+        const name = String(req.body?.name ?? "").trim()
+        if (!name) return res.status(400).json({ error: "name is required" })
+      
+        const db = await readDb()
+        const user = db.users.find(u => u.id === id)
+        if (!user) return res.status(404).json({ error: "User not found" })
+      
+        user.name = name
+        await writeDb(db)
+        res.json(user)
+    } catch (error) {
+        if(error instanceof Error) res.status(500).json({ error: error.message })
+        else  res.status(500).json({ error: "Unknown error occurred" })
+    }
 })
   
 // DELETE user
 app.delete("/api/users/:id", async (req, res) => {
-    const id = Number(req.params.id)
-    const db = await readDb()
-  
-    const before = db.users.length
-    db.users = db.users.filter(u => u.id !== id)
-    if (db.users.length === before) return res.status(404).json({ error: "User not found" })
-  
-    await writeDb(db)
-    res.status(204).send()
+    try {
+        const id = Number(req.params.id)
+        const db = await readDb()
+      
+        const before = db.users.length
+        db.users = db.users.filter(u => u.id !== id)
+        if (db.users.length === before) return res.status(404).json({ error: "User not found" })
+      
+        await writeDb(db)
+        res.status(204).send()
+    } catch (error) {
+        if(error instanceof Error) res.status(500).json({ error: error.message })
+        else  res.status(500).json({ error: "Unknown error occurred" })
+    }
 })
 
 app.listen(port, ()=> {
