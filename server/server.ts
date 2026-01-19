@@ -10,6 +10,7 @@ app.use(express.json())
 const routesReport = rowdy.begin(app)
 
 // this acts as a middleware is called before the main api is called
+// _res we're using the parameter but not calling it so the "_" impicitly states that
 app.use((req, _res, next) => {
     console.log(`${req.method} - ${req.url}`);
     next();
@@ -38,11 +39,11 @@ app.get("/api/users/:id", async (req, res) => {
 // CREATE user
 app.post("/api/users", async (req, res) => {
     try {
-        const {name, email, password} = req.body
-        if (!name) return res.status(400).json({ error: "name is required" })
+        const {github} = req.body
+        if (!github) return res.status(400).json({ error: "name is required" })
       
         const db = await readDb()
-        const user = { id: nextId(db.users), name, email, password }
+        const user = { id: nextId(db.users), github }
         db.users.push(user)
       
         await writeDb(db)
@@ -57,14 +58,14 @@ app.post("/api/users", async (req, res) => {
 app.put("/api/users/:id", async (req, res) => {
     try {
         const id = Number(req.params.id)
-        const name = String(req.body?.name ?? "").trim()
-        if (!name) return res.status(400).json({ error: "name is required" })
+        const github = String(req.body?.github ?? "").trim()
+        if (!github) return res.status(400).json({ error: "name is required" })
       
         const db = await readDb()
         const user = db.users.find(u => u.id === id)
         if (!user) return res.status(404).json({ error: "User not found" })
       
-        user.name = name
+        user.github = github
         await writeDb(db)
         res.json(user)
     } catch (error) {
@@ -84,7 +85,7 @@ app.delete("/api/users/:id", async (req, res) => {
         if (db.users.length === before) return res.status(404).json({ error: "User not found" })
       
         await writeDb(db)
-        res.status(204).send()
+        res.status(204).send().json()
     } catch (error) {
         if(error instanceof Error) res.status(500).json({ error: error.message })
         else  res.status(500).json({ error: "Unknown error occurred" })

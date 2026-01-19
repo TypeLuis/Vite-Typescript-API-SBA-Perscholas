@@ -8,9 +8,7 @@ const DB_PATH = path.resolve(process.cwd(), "database.json");
 export type DbShape = {
     users: Array<{ 
         id: number,
-        name: string,
-        email: string,
-        password: string
+        github: string,
     }>
 }
 

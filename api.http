@@ -20,3 +20,9 @@ Content-Type: application/json
 // Get 1 User
 
 GET http://localhost:3020/api/users/1
+
+###
+
+// Delete User
+
+DELETE http://localhost:3020/api/users/1
