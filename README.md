@@ -1,5 +1,7 @@
 ### Getting it Running
 
+- `npm i`
+- `npm run dev`
 
 
 ### Setup
