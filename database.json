@@ -1,12 +1,3 @@
 {
-  "users": [
-    {
-      "id": 1,
-      "github": "typeluis"
-    },
-    {
-      "id": 2,
-      "github": "jen"
-    }
-  ]
+  "users": []
 }

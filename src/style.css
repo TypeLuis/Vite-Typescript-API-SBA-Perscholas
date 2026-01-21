@@ -1,0 +1,108 @@
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f5f7fa;
+    margin: 0;
+    padding: 2rem;
+  }
+  
+  form {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  input {
+    padding: 0.6rem 0.8rem;
+    font-size: 1rem;
+  }
+  
+  button {
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+  }
+  
+  #users {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+  }
+  
+  .user {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  .user img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .userInfo {
+    flex: 1;
+  }
+  
+  .naming {
+    margin-bottom: 0.5rem;
+  }
+  
+  .naming .login {
+    font-weight: 600;
+    color: #2563eb;
+    text-decoration: none;
+  }
+  
+  .naming .login:hover {
+    text-decoration: underline;
+  }
+  
+  .name {
+    margin: 0.2rem 0;
+    font-size: 0.95rem;
+    color: #444;
+  }
+  
+  .userMeta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.3rem 0.8rem;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .userMeta p {
+    margin: 0;
+  }
+  
+  .userMeta button {
+    grid-column: span 2;
+    margin-top: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    padding: 0.4rem;
+    font-size: 0.85rem;
+  }
+  
+  .deleteBtn {
+    background: #ef4444;
+    color: white;
+  }
+  
+  .editBtn {
+    background: #f59e0b;
+    color: white;
+  }
+  
+  .deleteBtn:hover {
+    background: #dc2626;
+  }
+  
+  .editBtn:hover {
+    background: #d97706;
+  }
+  
